@@ -15,7 +15,21 @@ class _ActivityPageState extends State<ActivityPage> {
       child: Scaffold(
         body: Padding(
           padding: const EdgeInsets.all(15.0),
-          child: Column(children: [HeatMaps()]),
+          child: Column(children: [Container(
+            
+             decoration: BoxDecoration(
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                    color: Colors.black26,
+                    offset: Offset.zero,
+                    spreadRadius: 0,
+                    blurRadius: 13),
+              ],
+              borderRadius: BorderRadius.all(Radius.circular(8)),
+              border: Border.all(color: Colors.grey.withOpacity(.01))),
+            
+            child: HeatMaps())]),
         ),
       ),
     );
