@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:habit_heat/model/FAQ.dart';
+import 'package:habit_heat/sccreens/add_task.dart';
+import 'package:habit_heat/widgets/faq_widget.dart';
 import 'package:habit_heat/widgets/heat_map.dart';
 import 'package:intl/intl.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
@@ -13,6 +16,7 @@ class ActivityPage extends StatefulWidget {
 
 class _ActivityPageState extends State<ActivityPage> {
   DateTime currentDate = DateTime.now();
+  var color = [Color(0xff4cc1a9), Color(0xff378e7c)];
   final Shader linearGradient = LinearGradient(
     colors: <Color>[
       Color.fromARGB(255, 236, 12, 12),
@@ -24,6 +28,7 @@ class _ActivityPageState extends State<ActivityPage> {
       Color.fromARGB(255, 236, 12, 12),
       Color.fromARGB(255, 255, 148, 7)
     ],
+    //  GColors = [Color(0xff4cc1a9), Color(0xff378e7c)];
   );
   @override
   Widget build(BuildContext context) {
@@ -31,6 +36,32 @@ class _ActivityPageState extends State<ActivityPage> {
 
     return SafeArea(
       child: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          child: Container(
+              width: 60,
+              height: 60,
+              child: Icon(
+                Icons.add,
+                size: 40,
+              ),
+              decoration: BoxDecoration(
+                  shape: BoxShape.circle,
+                  gradient: LinearGradient(
+                      colors: color,
+                      begin: Alignment.topRight,
+                      end: Alignment.bottomLeft))),
+          onPressed: () {
+            // Provider.of<TaskData>(context, listen: false).profile =
+            //     widget.profile;
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (context) => AddSession(
+                          color: color,
+                          profile: 'Gym',
+                        )));
+          },
+        ),
         body: Padding(
           padding: const EdgeInsets.all(15.0),
           child: Column(children: [
@@ -104,7 +135,48 @@ class _ActivityPageState extends State<ActivityPage> {
                       ],
                       borderRadius: BorderRadius.all(Radius.circular(8)),
                       border: Border.all(color: Colors.grey.withOpacity(.01))),
-                  child: HeatMaps(date: currentDate,)),
+                  child: HeatMaps(
+                    date: currentDate,
+                  )),
+            ),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                "Today's sessions",
+                style: TextStyle(
+                  fontFamily: 'Roboto',
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.black54,
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.all(13.0),
+                child: Container(
+                  decoration: BoxDecoration(
+                      gradient: grad,
+                      boxShadow: [
+                        BoxShadow(
+                            color: Colors.black26,
+                            offset: Offset.zero,
+                            spreadRadius: 0,
+                            blurRadius: 13),
+                      ],
+                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                      border: Border.all(color: Colors.grey.withOpacity(.01))),
+                  child: ListView.builder(
+                      itemCount: 8,
+                      itemBuilder: (context, int n) {
+                        return FAQWidget(
+                            faq: FAQ(
+                                question: 'Session #1',
+                                answer:
+                                    'Rating: 4\nDuration: 4 hrs\nRemarks: abcdefjhv'));
+                      }),
+                ),
+              ),
             )
           ]),
         ),

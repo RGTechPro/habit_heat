@@ -3,15 +3,15 @@ import 'package:flutter/scheduler.dart';
 // import 'package:habit_heat/services/add_task.dart';
 import 'package:intl/intl.dart';
 
-class AddTask extends StatefulWidget {
-  AddTask({this.color, this.profile});
+class AddSession extends StatefulWidget {
+  AddSession({this.color, this.profile});
   List<Color>? color;
   String? profile;
   @override
-  _AddTaskState createState() => _AddTaskState();
+  _AddSessionState createState() => _AddSessionState();
 }
 
-class _AddTaskState extends State<AddTask> {
+class _AddSessionState extends State<AddSession> {
   final _formKey = GlobalKey<FormState>();
   String init_val = 'Today';
   String? taskName;
@@ -21,7 +21,7 @@ class _AddTaskState extends State<AddTask> {
       appBar: AppBar(
         centerTitle: true,
         title: Text(
-          'New Task',
+          'New Session',
           style: TextStyle(
               fontFamily: 'Roboto',
               fontWeight: FontWeight.bold,
