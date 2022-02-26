@@ -91,65 +91,13 @@ class _TaskState extends State<Task> {
                 ),
               ],
             ),
-            StreamBuilder<DocumentSnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection(widget.profile!)
-                    .doc(FirebaseAuth.instance.currentUser!.uid)
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  try {
-                    final now = new DateTime.now();
-                    String date = DateFormat.yMMMMd('en_US').format(now);
-                    List tempDoc = snapshot.data![date];
-                    if (snapshot.hasError) {
-                      return Center(
-                          child: Text(
-                        'Something went wrong',
-                      ));
-                    }
-
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                    if (tempDoc.isEmpty) {
-                      return Text(
+             Text(
                         '0 Task today',
                         style: TextStyle(
                             fontFamily: 'Roboto',
                             color: Colors.black54,
                             fontSize: 17),
-                      );
-                    }
-
-                    Provider.of<TaskData>(context).len = tempDoc.length;
-
-                    return Text(
-                      '${Provider.of<TaskData>(context).len} Tasks today',
-                      style: TextStyle(
-                          fontFamily: 'Roboto',
-                          color: Colors.black54,
-                          fontSize: 17),
-                    );
-                  } catch (e) {
-                    if (e.toString().contains('field does not exist') ||
-                        e.toString().contains('cannot get a field')) {
-                      return Text(
-                        '0 Task today',
-                        style: TextStyle(
-                            fontFamily: 'Roboto',
-                            color: Colors.black54,
-                            fontSize: 17),
-                      );
-                    }
-                    return Center(
-                        child: Text(
-                      'Error: $e',
-                      textAlign: TextAlign.center,
-                    ));
-                  }
-                }),
+                      ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: Text(
@@ -161,39 +109,16 @@ class _TaskState extends State<Task> {
                     fontSize: 30),
               ),
             ),
-            StreamBuilder<DocumentSnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection(widget.profile!)
-                    .doc(FirebaseAuth.instance.currentUser!.uid)
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  try {
-                    final now = new DateTime.now();
-                    String date = DateFormat.yMMMMd('en_US').format(now);
-                    List tempDoc = snapshot.data![date];
-                    if (snapshot.hasError) {
-                      return Center(
-                          child: Text(
-                        'Something went wrong',
-                      ));
-                    }
-
-                    if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(
-                        child: CircularProgressIndicator(),
-                      );
-                    }
-                    if (tempDoc.isEmpty) {
-                      return Padding(
+           Padding(
                         padding: const EdgeInsets.symmetric(vertical: 15.0),
                         child: LinearPercentIndicator(
                           padding: EdgeInsets.only(right: 10),
                           trailing: Text(
-                            '0%',
+                            '69%',
                             style: TextStyle(
                                 fontFamily: 'Roboto', color: Colors.black54),
                           ),
-                          percent: 0,
+                          percent: .69,
                           lineHeight: 3,
                           backgroundColor: Colors.grey.withOpacity(.2),
                           linearGradient: LinearGradient(
@@ -201,153 +126,18 @@ class _TaskState extends State<Task> {
                               begin: Alignment.centerLeft,
                               end: Alignment.centerRight),
                         ),
-                      );
-                    }
-
-                    Provider.of<TaskData>(context).len = tempDoc.length;
-                    Provider.of<TaskData>(context).n = 0;
-                    for (int i = 0;
-                        i < Provider.of<TaskData>(context, listen: false).len;
-                        i++) {
-                      if (tempDoc[i]['isDone'] == true) {
-                        Provider.of<TaskData>(context).n++;
-                      }
-                    }
-
-                    return Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 15.0),
-                      child: LinearPercentIndicator(
-                        padding: EdgeInsets.only(right: 10),
-                        trailing: Text(
-                          '${(Provider.of<TaskData>(context).n / Provider.of<TaskData>(context).len * 100).toStringAsFixed(2)}%',
-                          style: TextStyle(
-                              fontFamily: 'Roboto', color: Colors.black54),
-                        ),
-                        percent: Provider.of<TaskData>(context).n /
-                            Provider.of<TaskData>(context).len,
-                        lineHeight: 3,
-                        backgroundColor: Colors.grey.withOpacity(.2),
-                        linearGradient: LinearGradient(
-                            colors: widget.color!,
-                            begin: Alignment.centerLeft,
-                            end: Alignment.centerRight),
                       ),
-                    );
-                  } catch (e) {
-                    if (e.toString().contains('field does not exist') ||
-                        e.toString().contains('cannot get a field')) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 15.0),
-                        child: LinearPercentIndicator(
-                          padding: EdgeInsets.only(right: 10),
-                          trailing: Text(
-                            '0%',
-                            style: TextStyle(
-                                fontFamily: 'Roboto', color: Colors.black54),
-                          ),
-                          percent: 0,
-                          lineHeight: 3,
-                          backgroundColor: Colors.grey.withOpacity(.2),
-                          linearGradient: LinearGradient(
-                              colors: widget.color!,
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight),
-                        ),
-                      );
-                    }
-                    return Center(
-                        child: Text(
-                      'Error: $e',
-                      textAlign: TextAlign.center,
-                    ));
-                  }
-                }),
             Text(
               'Today',
               style: TextStyle(
                   fontFamily: 'Roboto', color: Colors.black54, fontSize: 17),
             ),
-            StreamBuilder<DocumentSnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection(widget.profile!)
-                    .doc(FirebaseAuth.instance.currentUser!.uid)
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return Center(
-                        child: Text(
-                      'Something went wrong',
-                    ));
-                  }
-
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-
-                  try {
-                    final now = new DateTime.now();
-                    String date = DateFormat.yMMMMd('en_US').format(now);
-                    List tempDoc = snapshot.data![date];
-                    // List<Tasks> tempList = [];
-                    // for (int i = 0; i < tempDoc.length; i++) {
-                    //   tempList.insert(
-                    //       0,
-                    //       Tasks(taskName: tempDoc[i]['taskName'],
-                    //       isDone: tempDoc[i]['isDone']
-                    //          ));
-                    // }
-                    // Provider.of<TaskData>(context).len = tempDoc.length;
-
-                    // for (int i = 0;
-                    //     i < Provider.of<TaskData>(context, listen: false).len;
-                    //     i++) {
-                    //   if (tempDoc[i]['isDone'] == true) {
-                    //     Provider.of<TaskData>(context).n++;
-                    //   }
-                    // }
-                    // Provider.of<TaskData>(context, listen: false).call();
-
-                    if (tempDoc.isEmpty) {
-                      return Center(
+            Center(
                         child: Text(
                           'No task found for today!',
                           textAlign: TextAlign.center,
                         ),
-                      );
-                    }
-
-                    return ListView.builder(
-                      itemCount: tempDoc.length,
-                      itemBuilder: (context, index) {
-                        return TaskTile(
-                          taskName: tempDoc[index]['taskName'],
-                          isDone: tempDoc[index]['isDone'],
-                          Dcontext: context,
-                          day: 'Today',
-                        );
-                      },
-                      shrinkWrap: true,
-                      physics: ScrollPhysics(),
-                    );
-                  } catch (e) {
-                    if (e.toString().contains('field does not exist') ||
-                        e.toString().contains('cannot get a field')) {
-                      return Center(
-                        child: Text(
-                          'No task found for today!',
-                          textAlign: TextAlign.center,
-                        ),
-                      );
-                    }
-                    return Center(
-                        child: Text(
-                      'Error: $e',
-                      textAlign: TextAlign.center,
-                    ));
-                  }
-                }),
+                      ),
             Padding(
               padding: const EdgeInsets.only(top: 15.0),
               child: Text(
@@ -356,84 +146,12 @@ class _TaskState extends State<Task> {
                     fontFamily: 'Roboto', color: Colors.black54, fontSize: 17),
               ),
             ),
-            StreamBuilder<DocumentSnapshot>(
-                stream: FirebaseFirestore.instance
-                    .collection(widget.profile!)
-                    .doc(FirebaseAuth.instance.currentUser!.uid)
-                    .snapshots(),
-                builder: (context, snapshot) {
-                  if (snapshot.hasError) {
-                    return Center(
+          Center(
                         child: Text(
-                      'Something went wrong',
-                    ));
-                  }
-
-                  if (snapshot.connectionState == ConnectionState.waiting) {
-                    return Center(
-                      child: CircularProgressIndicator(),
-                    );
-                  }
-
-                  try {
-                    var now = new DateTime.now();
-                    var t = now.add(new Duration(days: 1));
-                    String date = DateFormat.yMMMMd('en_US').format(t);
-                    List tempDoc = snapshot.data![date];
-
-                    // List<Tasks> tempList = [];
-                    // for (int i = 0; i < tempDoc.length; i++) {
-                    //   tempList.insert(
-                    //       0,
-                    //       Tasks(taskName: tempDoc[i]['taskName'],
-                    //       isDone: tempDoc[i]['isDone']
-                    //          ));
-                    // }
-                    if (tempDoc.isEmpty) {
-                      return Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Text(
-                            'No task found!',
-                            textAlign: TextAlign.center,
-                          ),
+                          'No task found for today!',
+                          textAlign: TextAlign.center,
                         ),
-                      );
-                    }
-
-                    return ListView.builder(
-                      itemCount: tempDoc.length,
-                      itemBuilder: (context, index) {
-                        return TaskTile(
-                          taskName: tempDoc[index]['taskName'],
-                          isDone: tempDoc[index]['isDone'],
-                          Dcontext: context,
-                          day: 'Tommorrow',
-                        );
-                      },
-                      shrinkWrap: true,
-                      physics: ScrollPhysics(),
-                    );
-                  } catch (e) {
-                    if (e.toString().contains('field does not exist') ||
-                        e.toString().contains('cannot get a field')) {
-                      return Center(
-                        child: Padding(
-                          padding: const EdgeInsets.all(12.0),
-                          child: Text(
-                            'No task found for tommorrow!',
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      );
-                    }
-                    return Center(
-                        child: Text(
-                      'Error: $e',
-                      textAlign: TextAlign.center,
-                    ));
-                  }
-                }),
+                      )
           ],
         ),
       ),
