@@ -19,9 +19,15 @@ class _ActivityPageState extends State<ActivityPage> {
       Color.fromARGB(255, 255, 148, 7)
     ],
   ).createShader(Rect.fromLTWH(0.0, 0.0, 200.0, 70.0));
+  final Gradient grad = LinearGradient(
+    colors: <Color>[
+      Color.fromARGB(255, 236, 12, 12),
+      Color.fromARGB(255, 255, 148, 7)
+    ],
+  );
   @override
   Widget build(BuildContext context) {
-    String month = DateFormat('MMM').format(currentDate);
+    String month = DateFormat('yMMM').format(currentDate);
 
     return SafeArea(
       child: Scaffold(
@@ -44,7 +50,30 @@ class _ActivityPageState extends State<ActivityPage> {
                       foreground: Paint()..shader = linearGradient),
                 ),
                 GestureDetector(
-                  child: Text(month),
+                  child: Container(
+                      decoration: BoxDecoration(
+                          gradient: grad,
+                          boxShadow: [
+                            BoxShadow(
+                                color: Colors.black26,
+                                offset: Offset.zero,
+                                spreadRadius: 0,
+                                blurRadius: 13),
+                          ],
+                          borderRadius: BorderRadius.all(Radius.circular(8)),
+                          border:
+                              Border.all(color: Colors.grey.withOpacity(.01))),
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text(
+                          month,
+                          style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontSize: 15,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white),
+                        ),
+                      )),
                   onTap: () {
                     showMonthPicker(context: context, initialDate: currentDate)
                         .then((date) {
@@ -75,7 +104,7 @@ class _ActivityPageState extends State<ActivityPage> {
                       ],
                       borderRadius: BorderRadius.all(Radius.circular(8)),
                       border: Border.all(color: Colors.grey.withOpacity(.01))),
-                  child: HeatMaps()),
+                  child: HeatMaps(date: currentDate,)),
             )
           ]),
         ),
