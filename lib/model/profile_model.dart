@@ -15,10 +15,10 @@ class ProfileModel{
 
   Map<String,dynamic> toJson() {
 
-    late List<Map<String,dynamic>> add;
+    List<Map<String,dynamic>> add2 = [];
     if(habits!=null) {
-      habits.forEach((element) {
-        add.add()
+      habits?.forEach((element) {
+        add2.add(SessionsModel().toJson(element));
       });
     }
     return {
@@ -26,7 +26,23 @@ class ProfileModel{
       "email":email,
       "uid":uid,
       "imgLink":imgLink,
-      "habits": habits != null ? habits() : {},
+      "habits": habits != null ? add2 : [],
     };
+  }
+
+  factory ProfileModel.fromJSON(Map<String,dynamic> data) {
+
+    List<SessionsModel> hey=[];
+    if(data["habits"]!=null) {
+      data["habits"].forEach((element) {
+        hey.add(SessionsModel.fromJSON(element));
+      });
+    }
+    return ProfileModel(
+      name: data["name"],
+      uid: data["uid"],
+      email: data["email"],
+      habits: data["habits"]!=null? hey : [],
+    );
   }
 }

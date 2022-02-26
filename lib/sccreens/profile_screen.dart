@@ -226,6 +226,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           padding: const EdgeInsets.only(top: 10, left: 45, right: 45),
                           child: HeatMaps(
                             date: DateTime.now(),
+                            abcd: true,
                           ),
                         ),
                         Container(

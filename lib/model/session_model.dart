@@ -8,12 +8,12 @@ class SessionsModel{
   SessionsModel({this.name,this.duration,this.rating,this.remarks});
 
 
-  Map<String,dynamic> toJson() {
+  Map<String,dynamic> toJson(SessionsModel model) {
     return {
-      "name":name,
-      "rating":rating,
-      "duration":duration,
-      "remarks":remarks,
+      "name":model.name,
+      "rating":model.rating,
+      "duration":model.duration,
+      "remarks":model.remarks,
     };
   }
 
