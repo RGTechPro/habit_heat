@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:habit_heat/model/FAQ.dart';
-import 'package:habit_heat/sccreens/add_task.dart';
+import 'package:habit_heat/sccreens/add_session.dart';
 import 'package:habit_heat/widgets/faq_widget.dart';
 import 'package:habit_heat/widgets/heat_map.dart';
 import 'package:intl/intl.dart';
@@ -137,6 +137,7 @@ class _ActivityPageState extends State<ActivityPage> {
                       border: Border.all(color: Colors.grey.withOpacity(.01))),
                   child: HeatMaps(
                     date: currentDate,
+                    abcd: true,
                   )),
             ),
             Padding(

@@ -3,7 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:habit_heat/Provider/task.dart';
 import 'package:habit_heat/model/task.dart';
-import 'package:habit_heat/sccreens/add_task.dart';
+import 'package:habit_heat/sccreens/add_session.dart';
 import 'package:habit_heat/widgets/task_tile.dart';
 import 'package:intl/intl.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
