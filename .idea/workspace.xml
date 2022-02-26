@@ -10,9 +10,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c19e78fb-a281-4896-b85a-427cc7baee29" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/lib/colorsOur.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/sccreens/profile_screen.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/textStyleOur.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/habit_heat.iml" beforeDir="false" afterPath="$PROJECT_DIR$/habit_heat.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/constants/constants.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/constants/constants.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/sccreens/home_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sccreens/home_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

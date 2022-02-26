@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:habit_heat/Provider/weatherDart.dart';
 import 'package:habit_heat/constants/size_config.dart';
 import 'package:habit_heat/sccreens/log_in.dart';
+import 'package:habit_heat/sccreens/profile_screen.dart';
 import 'package:habit_heat/widgets/card.dart';
 import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
@@ -137,32 +138,37 @@ class _HomePageState extends State<HomePage> {
                   const TextStyle(fontFamily: 'Roboto', fontWeight: FontWeight.bold),
             ),
           )),
-          leading: Container(
-            padding: EdgeInsets.only(left: 10),
-            width: 30,
-            height: 30,
-            // decoration: BoxDecoration(
-            //   shape: BoxShape.circle,
-            //   boxShadow: [
-            //     BoxShadow(
-            //         blurRadius: 12,
-            //         color: Colors.black38,
-            //         spreadRadius: 0)
-            //   ],
-            // ),
+          leading: GestureDetector(
+            onTap: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfileScreen()));
+            },
+            child: Container(
+              padding: EdgeInsets.only(left: 10),
+              width: 30,
+              height: 30,
+              // decoration: BoxDecoration(
+              //   shape: BoxShape.circle,
+              //   boxShadow: [
+              //     BoxShadow(
+              //         blurRadius: 12,
+              //         color: Colors.black38,
+              //         spreadRadius: 0)
+              //   ],
+              // ),
 
-            child: Lottie.asset("assets/lottie/profile.json"),
-            // child: CircleAvatar(
-            //     radius: 20,
-            //     child: ClipRRect(
-            //       borderRadius: BorderRadius.circular(30),
-            //       child: Image.asset(
-            //         'images/avatar.jpg',
-            //         //height: 20,
-            //         //width: 20,
-            //         //fit: BoxFit.fitWidth,
-            //       ),
-            //     )),
+              child: Lottie.asset("assets/lottie/profile.json"),
+              // child: CircleAvatar(
+              //     radius: 20,
+              //     child: ClipRRect(
+              //       borderRadius: BorderRadius.circular(30),
+              //       child: Image.asset(
+              //         'images/avatar.jpg',
+              //         //height: 20,
+              //         //width: 20,
+              //         //fit: BoxFit.fitWidth,
+              //       ),
+              //     )),
+            ),
           ),
           actions: [
             // Padding(
