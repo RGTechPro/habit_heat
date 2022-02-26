@@ -46,7 +46,7 @@ class _TaskState extends State<Task> {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => AddTask(
+                  builder: (context) => AddSession(
                         color: widget.color,
                         profile: widget.profile,
                       )));
@@ -91,13 +91,11 @@ class _TaskState extends State<Task> {
                 ),
               ],
             ),
-             Text(
-                        '0 Task today',
-                        style: TextStyle(
-                            fontFamily: 'Roboto',
-                            color: Colors.black54,
-                            fontSize: 17),
-                      ),
+            Text(
+              '0 Task today',
+              style: TextStyle(
+                  fontFamily: 'Roboto', color: Colors.black54, fontSize: 17),
+            ),
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 8),
               child: Text(
@@ -109,35 +107,34 @@ class _TaskState extends State<Task> {
                     fontSize: 30),
               ),
             ),
-           Padding(
-                        padding: const EdgeInsets.symmetric(vertical: 15.0),
-                        child: LinearPercentIndicator(
-                          padding: EdgeInsets.only(right: 10),
-                          trailing: Text(
-                            '69%',
-                            style: TextStyle(
-                                fontFamily: 'Roboto', color: Colors.black54),
-                          ),
-                          percent: .69,
-                          lineHeight: 3,
-                          backgroundColor: Colors.grey.withOpacity(.2),
-                          linearGradient: LinearGradient(
-                              colors: widget.color!,
-                              begin: Alignment.centerLeft,
-                              end: Alignment.centerRight),
-                        ),
-                      ),
+            Padding(
+              padding: const EdgeInsets.symmetric(vertical: 15.0),
+              child: LinearPercentIndicator(
+                padding: EdgeInsets.only(right: 10),
+                trailing: Text(
+                  '69%',
+                  style: TextStyle(fontFamily: 'Roboto', color: Colors.black54),
+                ),
+                percent: .69,
+                lineHeight: 3,
+                backgroundColor: Colors.grey.withOpacity(.2),
+                linearGradient: LinearGradient(
+                    colors: widget.color!,
+                    begin: Alignment.centerLeft,
+                    end: Alignment.centerRight),
+              ),
+            ),
             Text(
               'Today',
               style: TextStyle(
                   fontFamily: 'Roboto', color: Colors.black54, fontSize: 17),
             ),
             Center(
-                        child: Text(
-                          'No task found for today!',
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
+              child: Text(
+                'No task found for today!',
+                textAlign: TextAlign.center,
+              ),
+            ),
             Padding(
               padding: const EdgeInsets.only(top: 15.0),
               child: Text(
@@ -146,12 +143,12 @@ class _TaskState extends State<Task> {
                     fontFamily: 'Roboto', color: Colors.black54, fontSize: 17),
               ),
             ),
-          Center(
-                        child: Text(
-                          'No task found for today!',
-                          textAlign: TextAlign.center,
-                        ),
-                      )
+            Center(
+              child: Text(
+                'No task found for today!',
+                textAlign: TextAlign.center,
+              ),
+            )
           ],
         ),
       ),
