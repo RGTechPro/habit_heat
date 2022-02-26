@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:habit_heat/Provider/task.dart';
 import 'package:habit_heat/constants/size_config.dart';
+import 'package:habit_heat/sccreens/activity_page.dart';
 import 'package:habit_heat/sccreens/tasks.dart';
 import 'package:intl/intl.dart';
 import 'package:percent_indicator/percent_indicator.dart';
@@ -29,11 +30,7 @@ class TaskCard extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => Task(
-                        profile: profile,
-                        icon: icon,
-                        color: color,
-                      )));
+                  builder: (context) => ActivityPage()));
         },
         child: Container(
           height: SizeConfig.screenHeight! * 0.46,

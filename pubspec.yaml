@@ -21,8 +21,9 @@ dependencies:
   provider: ^6.0.2
   flutter_svg: ^1.0.3
   intl: ^0.17.0
-  url_launcher: ^6.0.20
-  lottie: ^1.2.2
+  url_launcher: ^6.0.20  
+  flutter_heatmap_calendar: ^1.0.3
+  month_picker_dialog: ^0.4.0
 
   # The following adds the Cupertino Icons font to your application.
   # Use with the CupertinoIcons class for iOS style icons.
@@ -38,7 +39,6 @@ flutter:
   assets:
     - images/
     - assets/icons/
-    - assets/lottie/
 
   uses-material-design: true
 
