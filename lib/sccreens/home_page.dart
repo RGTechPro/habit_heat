@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:habit_heat/Provider/weatherDart.dart';
 import 'package:habit_heat/constants/size_config.dart';
 import 'package:habit_heat/sccreens/log_in.dart';
 import 'package:habit_heat/widgets/card.dart';
@@ -10,6 +11,7 @@ import 'package:provider/provider.dart';
 import 'package:habit_heat/Provider/account.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:habit_heat/services/auth_services.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class HomePage extends StatefulWidget {
@@ -20,6 +22,19 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
+
+
+  Future ?data;
+
+  @override
+  void initState() {
+    WeatherProvider weatherProvider = Provider.of<WeatherProvider>(context,listen:false);
+    data  = weatherProvider.getLocationInformationUser();
+    super.initState();
+
+  }
+
+
   final now = new DateTime.now();
   List<Color> GColors = [Color(0xfff6ac51), Color(0xfff65875)];
   @override
@@ -35,6 +50,9 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget build(BuildContext context) {
+    WeatherProvider weatherProvider = Provider.of<WeatherProvider>(context,listen:false);
+
+    Size size = MediaQuery.of(context).size;
     SizeConfig().init(context);
     return Container(
       decoration: BoxDecoration(
@@ -108,11 +126,11 @@ class _HomePageState extends State<HomePage> {
         // ),
         backgroundColor: Colors.transparent,
         appBar: AppBar(
-          title:const Center(
+          title: Center(
               child: Padding(
             padding: const EdgeInsets.all(11.0),
             child: Text(
-              'TODO',
+                DateFormat.HOUR24_MINUTE_SECOND,
               style:
                   const TextStyle(fontFamily: 'Roboto', fontWeight: FontWeight.bold),
             ),
@@ -194,91 +212,128 @@ class _HomePageState extends State<HomePage> {
               flex:3,
               child: Padding(
                 padding: const EdgeInsets.only(left: 50, right: 50, top: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                child: Row(
                   children: [
-                    // Container(
-                    //   decoration: BoxDecoration(
-                    //     shape: BoxShape.circle,
-                    //     boxShadow: [
-                    //       BoxShadow(
-                    //           blurRadius: 12,
-                    //           color: Colors.black38,
-                    //           spreadRadius: 0)
-                    //     ],
-                    //   ),
-                    //   child: CircleAvatar(
-                    //       radius: 30,
-                    //       child: ClipRRect(
-                    //         borderRadius: BorderRadius.circular(30),
-                    //         child: Image.asset(
-                    //           'images/avatar.jpg',
-                    //           height: 60,
-                    //           width: 60,
-                    //           fit: BoxFit.fitWidth,
-                    //         ),
-                    //       )),
-                    // ),
-                    SizedBox(
-                      height: 5,
-                    ),
-                    Text(
-                      'Hello,John',
-                      maxLines: 1,
-                      style: TextStyle(
-                          fontFamily: 'Roboto',
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white,
-                          fontSize: 35,
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        // Container(
+                        //   decoration: BoxDecoration(
+                        //     shape: BoxShape.circle,
+                        //     boxShadow: [
+                        //       BoxShadow(
+                        //           blurRadius: 12,
+                        //           color: Colors.black38,
+                        //           spreadRadius: 0)
+                        //     ],
+                        //   ),
+                        //   child: CircleAvatar(
+                        //       radius: 30,
+                        //       child: ClipRRect(
+                        //         borderRadius: BorderRadius.circular(30),
+                        //         child: Image.asset(
+                        //           'images/avatar.jpg',
+                        //           height: 60,
+                        //           width: 60,
+                        //           fit: BoxFit.fitWidth,
+                        //         ),
+                        //       )),
+                        // ),
+                        SizedBox(
+                          height: 5,
+                        ),
+                        Text(
+                          'Hello,John',
+                          maxLines: 1,
+                          style: TextStyle(
+                              fontFamily: 'Roboto',
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              fontSize: 35,
 
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    // Text(
-                    //   'Looks like feel good.\nYou have some tasks to do today.',
-                    //   style: TextStyle(
-                    //       fontFamily: 'Roboto',
-                    //       color: Colors.white.withOpacity(.75),
-                    //       fontSize: 20),
-                    //   textAlign: TextAlign.center,
-                    //
-                    // ),
-
-                    Center(
-                      child: Row(
-                        children: [
-                          Text("Streak",style: TextStyle(
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                        // Text(
+                        //   'Looks like feel good.\nYou have some tasks to do today.',
+                        //   style: TextStyle(
+                        //       fontFamily: 'Roboto',
+                        //       color: Colors.white.withOpacity(.75),
+                        //       fontSize: 20),
+                        //   textAlign: TextAlign.center,
+                        //
+                        // ),
+                        Spacer(flex:1),
+                        Text(
+                          DateFormat.yMMMMd('en_US').format(now),
+                          style: TextStyle(
                               fontFamily: 'Roboto',
                               color: Colors.white,
                               fontSize: 17,
-                              fontWeight: FontWeight.bold),),
-                          SvgPicture.asset("assets/icons/streak.svg"),
-                          Text("5",style: TextStyle(
-                              fontFamily: 'Roboto',
-                              color: Colors.white,
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold),),
-                        ],
-                      ),
+                              fontWeight: FontWeight.bold),
+                        ),
+
+                        SizedBox(height: 10,),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text("Streak",style: TextStyle(
+                                fontFamily: 'Roboto',
+                                color: Colors.white,
+                                fontSize: 27,
+                                fontWeight: FontWeight.bold),),
+                            SizedBox(width: 10,),
+                            SvgPicture.asset("assets/icons/streak.svg",height: 30,),
+                            SizedBox(width: 10,),
+
+                            Text("5",style: TextStyle(
+                                fontFamily: 'Roboto',
+                                color: Colors.white,
+                                fontSize: 27,
+                                fontWeight: FontWeight.bold),),
+                            SizedBox(width: 10,),
+
+                          ],
+                        ),
+                        Spacer(flex:1),
+
+                      ],
                     ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Text(
-                      DateFormat.yMMMMd('en_US').format(now),
-                      style: TextStyle(
-                          fontFamily: 'Roboto',
-                          color: Colors.white,
-                          fontSize: 17,
-                          fontWeight: FontWeight.bold),
+                    FutureBuilder(
+                      future: data,
+                      builder: (context, snapshot) {
+                        switch(snapshot.connectionState) {
+                          case ConnectionState.none:
+                            return Container(child: Text("starting"),);
+                          case ConnectionState.waiting:
+                            return Center(
+                              child: Shimmer.fromColors(
+                                highlightColor: Colors.white,
+                                baseColor: Colors.grey[300] ?? Colors.grey,
+                                period: Duration(milliseconds: 10),
+
+                                child: Container(
+                                  height: 20,
+                                  width: 20,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey,
+                                    borderRadius: BorderRadius.circular(20),
+                                  ),
+                                ),
+                              ),
+                            );
+                          case ConnectionState.done:
+                            return Center(child: Text(weatherProvider.tempData ?? ""));
+                          default:
+                            return Text('No data found');
+                        }
+                      },
                     ),
                   ],
                 ),
               ),
             ),
+
             Expanded(
               flex: 7,
               child: Padding(

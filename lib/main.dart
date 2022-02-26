@@ -6,6 +6,8 @@ import 'package:habit_heat/sccreens/home_page.dart';
 import 'package:habit_heat/services/auth_services.dart';
 import 'package:provider/provider.dart';
 
+import 'Provider/weatherDart.dart';
+
 void main() {
   runApp(const MyApp());
 }
@@ -20,12 +22,13 @@ class MyApp extends StatelessWidget {
       providers: [
         ChangeNotifierProvider(create:(context)=> Auth()),
         ChangeNotifierProvider(create: (context)=>Account()),
-        ChangeNotifierProvider(create: (context)=>TaskData())
+        ChangeNotifierProvider(create: (context)=>TaskData()),
+        ChangeNotifierProvider(create: (context)=>WeatherProvider()),
       ],
       child: MaterialApp(
           title: 'Flutter Demo',
           theme: ThemeData(
-            appBarTheme: AppBarTheme(
+            appBarTheme:const AppBarTheme(
               elevation: 0,
               systemOverlayStyle: SystemUiOverlayStyle.dark,
             ),
