@@ -10,18 +10,23 @@ import 'package:intl/intl.dart';
 import 'package:percent_indicator/percent_indicator.dart';
 import 'package:provider/provider.dart';
 
+import '../Provider/currentState.dart';
+
 class TaskCard extends StatelessWidget {
   String? profile;
   IconData? icon;
   int? task_done;
   int? total_task;
   List<Color>? color;
+  int index;
 
   TaskCard(
-      {this.profile, this.icon, this.task_done, this.total_task, this.color});
+      {this.profile, this.icon, this.task_done, this.total_task, this.color, required this.index});
 
   @override
   Widget build(BuildContext context) {
+    CurrentState _instance = Provider.of(context,listen: false);
+
     SizeConfig().init(context);
 
     return Padding(
@@ -34,7 +39,7 @@ class TaskCard extends StatelessWidget {
           Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => ActivityPage()));
+                  builder: (context) => ActivityPage(index: index,)));
         },
         child: Container(
           height: SizeConfig.screenHeight! * 0.46,
@@ -56,7 +61,7 @@ class TaskCard extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Center(
-                  child: Text('0 Task today',
+                  child: Text(_instance.currentUser.habits?[index].name ?? "",
                     style: TextStyle(
                         fontFamily: 'Roboto',
                         color: Colors.black54,

@@ -6,9 +6,13 @@ import 'package:habit_heat/widgets/faq_widget.dart';
 import 'package:habit_heat/widgets/heat_map.dart';
 import 'package:intl/intl.dart';
 import 'package:month_picker_dialog/month_picker_dialog.dart';
+import 'package:provider/provider.dart';
+
+import '../Provider/currentState.dart';
 
 class ActivityPage extends StatefulWidget {
-  const ActivityPage({Key? key}) : super(key: key);
+  int index;
+  ActivityPage({Key? key, required this.index}) : super(key: key);
 
   @override
   _ActivityPageState createState() => _ActivityPageState();
@@ -32,6 +36,8 @@ class _ActivityPageState extends State<ActivityPage> {
   );
   @override
   Widget build(BuildContext context) {
+    CurrentState _instance = Provider.of(context,listen: false);
+
     String month = DateFormat('yMMM').format(currentDate);
 
     return SafeArea(
@@ -168,13 +174,13 @@ class _ActivityPageState extends State<ActivityPage> {
                       borderRadius: BorderRadius.all(Radius.circular(8)),
                       border: Border.all(color: Colors.grey.withOpacity(.01))),
                   child: ListView.builder(
-                      itemCount: 8,
+                      itemCount: _instance.currentUser.habits?[widget.index].sessions?.length ?? 0,
                       itemBuilder: (context, int n) {
                         return FAQWidget(
                             faq: FAQ(
                                 question: 'Session #1',
                                 answer:
-                                    'Rating: 4\nDuration: 4 hrs\nRemarks: abcdefjhv'));
+                                    'Rating: ${_instance.currentUser.habits?[widget.index].sessions?[n].rating}\nDuration: ${_instance.currentUser.habits?[widget.index].sessions?[n].duration} hrs\nRemarks: ${_instance.currentUser.habits?[widget.index].sessions?[n].remarks}'));
                       }),
                 ),
               ),

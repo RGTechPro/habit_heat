@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
+import 'package:habit_heat/Provider/currentState.dart';
 import 'package:habit_heat/Provider/weatherDart.dart';
 import 'package:habit_heat/constants/size_config.dart';
 import 'package:habit_heat/sccreens/log_in.dart';
@@ -25,23 +27,24 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-
-
-  Future ?data;
+  Future? data;
+  Future? data2;
 
   @override
   void initState() {
-    WeatherProvider weatherProvider = Provider.of<WeatherProvider>(context,listen:false);
-    data  = weatherProvider.getLocationInformationUser();
+    WeatherProvider weatherProvider =
+        Provider.of<WeatherProvider>(context, listen: false);
+    data = weatherProvider.getLocationInformationUser();
+    CurrentState _instance = Provider.of(context, listen: false);
+    data2 = _instance.getUserInfo();
     super.initState();
-
   }
-
 
   final now = new DateTime.now();
   List<Color> GColors = [Color(0xfff6ac51), Color(0xfff65875)];
   @override
   final _url = 'https://rgtechpro.github.io/doIt_privacy_policy/';
+
   void _launchURL() async {
     try {
       await launch(_url, forceWebView: true);
@@ -53,8 +56,12 @@ class _HomePageState extends State<HomePage> {
   }
 
   Widget build(BuildContext context) {
-    WeatherProvider weatherProvider = Provider.of<WeatherProvider>(context,listen:false);
+    WeatherProvider weatherProvider =
+        Provider.of<WeatherProvider>(context, listen: false);
+    CurrentState _instance = Provider.of<CurrentState>(context, listen: false);
 
+    print(_instance.currentUser.imgLink);
+    print(_instance.currentUser.email);
     Size size = MediaQuery.of(context).size;
     SizeConfig().init(context);
     return Container(
@@ -133,14 +140,15 @@ class _HomePageState extends State<HomePage> {
               child: Padding(
             padding: const EdgeInsets.all(11.0),
             child: Text(
-                DateFormat.HOUR24_MINUTE_SECOND,
-              style:
-                  const TextStyle(fontFamily: 'Roboto', fontWeight: FontWeight.bold),
+              DateFormat.HOUR24_MINUTE_SECOND,
+              style: const TextStyle(
+                  fontFamily: 'Roboto', fontWeight: FontWeight.bold),
             ),
           )),
           leading: GestureDetector(
             onTap: () {
-              Navigator.of(context).push(MaterialPageRoute(builder: (context) => ProfileScreen()));
+              Navigator.of(context).push(
+                  MaterialPageRoute(builder: (context) => ProfileScreen()));
             },
             child: Container(
               padding: EdgeInsets.only(left: 10),
@@ -156,7 +164,9 @@ class _HomePageState extends State<HomePage> {
               //   ],
               // ),
 
-              child: Lottie.asset("assets/lottie/profile.json"),
+              child: _instance.currentUser.imgLink==null? Lottie.asset("assets/lottie/profile.json"): CircleAvatar(
+                child: Image.network(_instance.currentUser.imgLink ?? ""),
+              ),
               // child: CircleAvatar(
               //     radius: 20,
               //     child: ClipRRect(
@@ -182,7 +192,7 @@ class _HomePageState extends State<HomePage> {
             // this is the drop down menu thing in the application that will be used to
             // select a particular item in the field
             Padding(
-              padding: const EdgeInsets.only(right:15.0),
+              padding: const EdgeInsets.only(right: 15.0),
               child: PopupMenuButton(
                 color: Colors.black,
                 child: Icon(
@@ -190,26 +200,21 @@ class _HomePageState extends State<HomePage> {
                   color: Colors.white,
                 ),
                 itemBuilder: (context) {
-                  return List.generate(1, (index) {
+                  return List.generate(_instance.currentUser.habits?.length ?? 0, (index) {
                     return PopupMenuItem(
-                      onTap: () {
-
-                      },
+                      onTap: () {},
                       //textStyle: GoogleFonts.openSans(fontSize: 12,color:ourWhite),
                       height: 20,
                       child: Container(
-                          color: Colors.black,
-                          height: 20,
-
-                          child: Text("data"),
+                        color: Colors.black,
+                        height: 20,
+                        child: Text(_instance.currentUser.habits?[index].name ?? "",style: GoogleFonts.aladin(color: Colors.white,fontSize:15),),
                       ),
                     );
                   });
                 },
               ),
             ),
-
-
           ],
           backgroundColor: Colors.transparent,
         ),
@@ -217,109 +222,139 @@ class _HomePageState extends State<HomePage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Expanded(
-              flex:3,
+              flex: 3,
               child: Padding(
                 padding: const EdgeInsets.only(left: 50, right: 50, top: 20),
                 child: Row(
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: [
-                        // Container(
-                        //   decoration: BoxDecoration(
-                        //     shape: BoxShape.circle,
-                        //     boxShadow: [
-                        //       BoxShadow(
-                        //           blurRadius: 12,
-                        //           color: Colors.black38,
-                        //           spreadRadius: 0)
-                        //     ],
-                        //   ),
-                        //   child: CircleAvatar(
-                        //       radius: 30,
-                        //       child: ClipRRect(
-                        //         borderRadius: BorderRadius.circular(30),
-                        //         child: Image.asset(
-                        //           'images/avatar.jpg',
-                        //           height: 60,
-                        //           width: 60,
-                        //           fit: BoxFit.fitWidth,
-                        //         ),
-                        //       )),
-                        // ),
-                        SizedBox(
-                          height: 5,
-                        ),
-                        Text(
-                          'Hello,John',
-                          maxLines: 1,
-                          style: TextStyle(
-                              fontFamily: 'Roboto',
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                              fontSize: 35,
+                    FutureBuilder(
+                      future: data2,
+                        builder: (context, snapshot) {
+                          switch (snapshot.connectionState) {
+                            case ConnectionState.none:
+                              return Container(
+                                child: Text("starting"),
+                              );
+                            case ConnectionState.waiting:
+                              return Center(
+                                child: Shimmer.fromColors(
+                                  highlightColor: Colors.white,
+                                  baseColor: Colors.grey[300] ?? Colors.grey,
+                                  period: Duration(milliseconds: 10),
+                                  child: Container(
+                                    height: 20,
+                                    width: 20,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey,
+                                      borderRadius: BorderRadius.circular(20),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            case ConnectionState.done:
+                              return Column(
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: [
+                                  // Container(
+                                  //   decoration: BoxDecoration(
+                                  //     shape: BoxShape.circle,
+                                  //     boxShadow: [
+                                  //       BoxShadow(
+                                  //           blurRadius: 12,
+                                  //           color: Colors.black38,
+                                  //           spreadRadius: 0)
+                                  //     ],
+                                  //   ),
+                                  //   child: CircleAvatar(
+                                  //       radius: 30,
+                                  //       child: ClipRRect(
+                                  //         borderRadius: BorderRadius.circular(30),
+                                  //         child: Image.asset(
+                                  //           'images/avatar.jpg',
+                                  //           height: 60,
+                                  //           width: 60,
+                                  //           fit: BoxFit.fitWidth,
+                                  //         ),
+                                  //       )),
+                                  // ),
+                                  SizedBox(
+                                    height: 5,
+                                  ),
+                                  Text(
+                                    _instance.currentUser.name ?? "",
+                                    maxLines: 1,
+                                    style: TextStyle(
+                                      fontFamily: 'Roboto',
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.white,
+                                      fontSize: 35,
 
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        // Text(
-                        //   'Looks like feel good.\nYou have some tasks to do today.',
-                        //   style: TextStyle(
-                        //       fontFamily: 'Roboto',
-                        //       color: Colors.white.withOpacity(.75),
-                        //       fontSize: 20),
-                        //   textAlign: TextAlign.center,
-                        //
-                        // ),
-                        Spacer(flex:1),
-                        Text(
-                          DateFormat.yMMMMd('en_US').format(now),
-                          style: TextStyle(
-                              fontFamily: 'Roboto',
-                              color: Colors.white,
-                              fontSize: 17,
-                              fontWeight: FontWeight.bold),
-                        ),
+                                    ),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                  // Text(
+                                  //   'Looks like feel good.\nYou have some tasks to do today.',
+                                  //   style: TextStyle(
+                                  //       fontFamily: 'Roboto',
+                                  //       color: Colors.white.withOpacity(.75),
+                                  //       fontSize: 20),
+                                  //   textAlign: TextAlign.center,
+                                  //
+                                  // ),
+                                  Spacer(flex:1),
+                                  Text(
+                                    DateFormat.yMMMMd('en_US').format(now),
+                                    style: TextStyle(
+                                        fontFamily: 'Roboto',
+                                        color: Colors.white,
+                                        fontSize: 17,
+                                        fontWeight: FontWeight.bold),
+                                  ),
 
-                        SizedBox(height: 10,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Streak",style: TextStyle(
-                                fontFamily: 'Roboto',
-                                color: Colors.white,
-                                fontSize: 27,
-                                fontWeight: FontWeight.bold),),
-                            SizedBox(width: 10,),
-                            SvgPicture.asset("assets/icons/streak.svg",height: 30,),
-                            SizedBox(width: 10,),
+                                  SizedBox(height: 10,),
+                                  Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Text("Streak",style: TextStyle(
+                                          fontFamily: 'Roboto',
+                                          color: Colors.white,
+                                          fontSize: 27,
+                                          fontWeight: FontWeight.bold),),
+                                      SizedBox(width: 10,),
+                                      SvgPicture.asset("assets/icons/streak.svg",height: 30,),
+                                      SizedBox(width: 10,),
 
-                            Text("5",style: TextStyle(
-                                fontFamily: 'Roboto',
-                                color: Colors.white,
-                                fontSize: 27,
-                                fontWeight: FontWeight.bold),),
-                            SizedBox(width: 10,),
+                                      Text(_instance.currentUser.streak.toString(),style: TextStyle(
+                                          fontFamily: 'Roboto',
+                                          color: Colors.white,
+                                          fontSize: 27,
+                                          fontWeight: FontWeight.bold),),
+                                      SizedBox(width: 10,),
 
-                          ],
-                        ),
-                        Spacer(flex:1),
+                                    ],
+                                  ),
+                                  Spacer(flex:1),
 
-                      ],
-                    ),
+                                ],
+                              );
+                            default:
+                              return Text('No data found');
+                          }
+                        }),
                     FutureBuilder(
                       future: data,
                       builder: (context, snapshot) {
-                        switch(snapshot.connectionState) {
+                        switch (snapshot.connectionState) {
                           case ConnectionState.none:
-                            return Container(child: Text("starting"),);
+                            return Container(
+                              child: Text("starting"),
+                            );
                           case ConnectionState.waiting:
                             return Center(
                               child: Shimmer.fromColors(
                                 highlightColor: Colors.white,
                                 baseColor: Colors.grey[300] ?? Colors.grey,
                                 period: Duration(milliseconds: 10),
-
                                 child: Container(
                                   height: 20,
                                   width: 20,
@@ -331,7 +366,8 @@ class _HomePageState extends State<HomePage> {
                               ),
                             );
                           case ConnectionState.done:
-                            return Center(child: Text(weatherProvider.tempData ?? ""));
+                            return Center(
+                                child: Text(weatherProvider.tempData ?? ""));
                           default:
                             return Text('No data found');
                         }
@@ -341,14 +377,14 @@ class _HomePageState extends State<HomePage> {
                 ),
               ),
             ),
-
             Expanded(
               flex: 7,
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 0),
                 child: SizedBox(
                   height: SizeConfig.screenHeight! * 0.5,
-                  child: PageView(
+                  child: PageView.builder(
+                    itemCount: _instance.currentUser.habits?.length ?? 1,
                       controller: PageController(viewportFraction: 0.75),
                       onPageChanged: (int i) {
                         setState(() {
@@ -364,142 +400,11 @@ class _HomePageState extends State<HomePage> {
                       //shrinkWrap: true,
                       //  physics: PageScrollPhysics(),
                       scrollDirection: Axis.horizontal,
-                      children: [
-                        TaskCard(
-                          profile: 'Personal',
-                          icon: Icons.person,
-                          color: [Color(0xfff6ac51), Color(0xfff65875)],
-                        ),
-                        TaskCard(
-                          profile: 'Work',
-                          icon: Icons.work,
-                          color: [Color(0xff62aee9), Color(0xff5363e2)],
-                        ),
-                        TaskCard(
-                          profile: 'Home',
-                          icon: Icons.home,
-                          color: [Color(0xff4cc1a9), Color(0xff378e7c)],
-                        ),
-                    Padding(
-                      padding: const EdgeInsets.only(right: 12, top: 15, left: 2, bottom: 20),
-                      child: GestureDetector(
-                        onTap: () {
+                      itemBuilder: (context, index) {
 
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => ActivityPage()));
-                        },
-                        child: Container(
-                          height: SizeConfig.screenHeight! * 0.46,
-                          width: SizeConfig.screenWidth! * 0.7,
-                          decoration: BoxDecoration(
-                              color: Colors.white,
-                              boxShadow: [
-                                BoxShadow(
-                                    color: Colors.black26,
-                                    offset: Offset.zero,
-                                    spreadRadius: 0,
-                                    blurRadius: 13),
-                              ],
-                              borderRadius: BorderRadius.all(Radius.circular(8)),
-                              border: Border.all(color: Colors.grey.withOpacity(.01))),
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Expanded(
-                                  child: Center(
-                                    child: Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text("Add"),
-                                        Icon(Icons.add),
-                                      ],
-                                    ),
-                                  ),
-                                ),
 
-                                // Expanded(
-                                //   child: Row(
-                                //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                //       children: [
-                                //         Padding(
-                                //           padding: const EdgeInsets.all(8.0),
-                                //           child: Container(
-                                //             decoration: BoxDecoration(
-                                //                 shape: BoxShape.circle,
-                                //                 border: Border.all(
-                                //                     color: Colors.grey.withOpacity(.15))),
-                                //             child: Padding(
-                                //               padding: const EdgeInsets.all(10),
-                                //               child: Icon(
-                                //                 icon,
-                                //                 color: color!.first,
-                                //               ),
-                                //             ),
-                                //           ),
-                                //         ),
-                                //         Padding(
-                                //           padding: const EdgeInsets.all(8),
-                                //           child: Icon(
-                                //             Icons.more_vert,
-                                //             color: Colors.grey.withOpacity(0.5),
-                                //           ),
-                                //         ),
-                                //       ]),
-                                // ),
-                                // SizedBox(
-                                //   height: SizeConfig.screenHeight! * 0.22,
-                                // ),
-                                // Padding(
-                                //             padding: const EdgeInsets.symmetric(
-                                //                 horizontal: 8.0, vertical: 3),
-                                //             child: Text(
-                                //               '0 Task today',
-                                //               style: TextStyle(
-                                //                   fontFamily: 'Roboto',
-                                //                   color: Colors.black54,
-                                //                   fontSize: 17),
-                                //             ),
-                                //           ),
-                                // Padding(
-                                //   padding: const EdgeInsets.symmetric(horizontal: 8),
-                                //   child: Text(
-                                //     profile!,
-                                //     style: TextStyle(
-                                //         fontFamily: 'Roboto',
-                                //         fontWeight: FontWeight.bold,
-                                //         color: Colors.black54,
-                                //         fontSize: 30),
-                                //   ),
-                                // ),
-                                // SizedBox(
-                                //   height: SizeConfig.screenHeight! * 0.020,
-                                // ),
-                                // LinearPercentIndicator(
-                                //   //  padding: EdgeInsets.only(right: 10),
-                                //   trailing: Text(
-                                //     '69%',
-                                //     style: TextStyle(
-                                //         fontFamily: 'Roboto', color: Colors.black54),
-                                //   ),
-                                //   percent: 0.69,
-                                //   lineHeight: 3,
-                                //   backgroundColor: Colors.grey.withOpacity(.2),
-                                //   linearGradient: LinearGradient(
-                                //       colors: color!,
-                                //       begin: Alignment.centerLeft,
-                                //       end: Alignment.centerRight),
-                                // )
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-                    )
-                      ]),
+                        return TaskCard(index: index,);
+                      },),
                 ),
               ),
             )

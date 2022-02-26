@@ -69,10 +69,14 @@ class _HeatMapsState extends State<HeatMaps> {
           }
           else{
 
+
+
+            // TODO : ask about this to rishab and change the logic here
+
                      Navigator.push(
               context,
               MaterialPageRoute(
-                  builder: (context) => ActivityPage()));
+                  builder: (context) => ActivityPage(index: 0,)));
           }
         },
       ),

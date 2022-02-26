@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "12287428382",
+    "project_id": "habitheat",
+    "storage_bucket": "habitheat.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:12287428382:android:725bf593996d3b81486b0f",
+        "android_client_info": {
+          "package_name": "com.example.habit_heat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "12287428382-6ovpieshjo00tr2msfstd1hpprm1ciq3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.habit_heat",
+            "certificate_hash": "7a3e26efb242dd020968fe995bc8fb4c139aa1fc"
+          }
+        },
+        {
+          "client_id": "12287428382-qkn3od2tkrg3voqhhceiekq9ojqu93ou.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAx38NT3_L4vQv6mLCEAfw5R_4iMvFzp24"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "12287428382-qkn3od2tkrg3voqhhceiekq9ojqu93ou.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -46,14 +46,7 @@ class _LogInState extends State<LogIn> {
                     color: Colors.white,
                     fontWeight: FontWeight.bold),
               ),
-              Text(
-                'by RGTechDev',
-                style: TextStyle(
-                    fontSize: getProportionateScreenWidth(15)!,
-                    fontFamily: 'Roboto',
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold),
-              ),
+
               const SizedBox(
                 height: 50,
               ),
@@ -64,13 +57,13 @@ class _LogInState extends State<LogIn> {
                     ? ElevatedButton(
                         onPressed: () async {
                           try {
-                            UserCredential googleUserCred =
-                                await Provider.of<Auth>(context, listen: false)
-                                    .signInWithGoogle();
 
-                            Provider.of<Auth>(context, listen: false)
-                                .setUser(googleUserCred.user);
-                            Provider.of<Auth>(context, listen: false).addUser();
+                                await Provider.of<Auth>(context, listen: false)
+                                    .signInWithGoogle(context);
+
+                            // Provider.of<Auth>(context, listen: false)
+                            //     .setUser(googleUserCred.user);
+//                            Provider.of<Auth>(context, listen: false).addUser();
                             if (Provider.of<Auth>(context, listen: false)
                                     .getUser() !=
                                 null) {

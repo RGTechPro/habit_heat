@@ -1,27 +1,30 @@
 class SessionsModel{
-  String ?name;
+
   int ?rating;
   int ?duration;
   String ?remarks;
+  String ?dateTime;
 
-
-  SessionsModel({this.name,this.duration,this.rating,this.remarks});
+  SessionsModel({this.duration,this.rating,this.remarks,this.dateTime});
 
 
   Map<String,dynamic> toJson(SessionsModel model) {
     return {
-      "name":model.name,
+
       "rating":model.rating,
       "duration":model.duration,
       "remarks":model.remarks,
+      "date":dateTime
     };
   }
 
   factory SessionsModel.fromJSON(Map<String,dynamic> json) {
     return SessionsModel(
-      name: json["name"],
-      duration: json["duration"],
 
+      duration: json["duration"],
+      rating: json["rating"],
+      remarks: json["remarks"],
+      dateTime: json["date"],
     );
   }
 }

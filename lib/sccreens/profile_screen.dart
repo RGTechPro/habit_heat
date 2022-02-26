@@ -8,8 +8,10 @@ import 'package:lottie/lottie.dart';
 
 import 'package:provider/provider.dart';
 
+import '../Provider/currentState.dart';
 import '../Provider/weatherDart.dart';
 import '../colorsOur.dart';
+import '../services/auth_services.dart';
 import '../textStyleOur.dart';
 import '../widgets/heat_map.dart';
 
@@ -20,17 +22,6 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   final TextEditingController _name = TextEditingController();
-  final TextEditingController _phone = TextEditingController();
-  final TextEditingController _email = TextEditingController();
-  final TextEditingController _dob = TextEditingController();
-
-  final TextEditingController _houseNo = TextEditingController();
-  final TextEditingController _street = TextEditingController();
-  final TextEditingController _city = TextEditingController();
-  final TextEditingController _state = TextEditingController();
-  final TextEditingController _pincode = TextEditingController();
-
-  //TextEditingController selectedDate = TextEditingController();
 
   String gender = "female";
 
@@ -50,6 +41,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   initialApiCalls() async {
+    CurrentState _instance = Provider.of<CurrentState>(context,listen: false);
+
+    _name.text = _instance.currentUser.name ?? "";
     //await apiCall
   }
 
@@ -57,6 +51,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     var height = MediaQuery.of(context).size.height;
     Size size = MediaQuery.of(context).size;
+    CurrentState _instance = Provider.of<CurrentState>(context,listen: false);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.orange,
@@ -208,9 +203,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               ),
                             )),
 
-                        ...List.generate(10, (index) {
+                        ...List.generate(_instance.currentUser.habits?.length ?? 0, (index) {
                           return Container(
-                            child: Text("This is activty ",
+                            child: Text(_instance.currentUser.habits?[index].name??"",
                                 style: GoogleFonts.openSans(
                                     color: Colors.black, fontSize: 16)),
                           );
@@ -257,7 +252,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                               width: 10,
                             ),
                             Text(
-                              "5",
+                              _instance.currentUser.streak.toString(),
                               style: TextStyle(
                                   fontFamily: 'Roboto',
                                   color: Colors.black,
@@ -271,10 +266,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
 
                         SizedBox(height: 20,),
+                        GestureDetector(
+                          onTap: () {
+                            Auth().logout(context);
+                          },
+                          child: Text("logout"),
+                        ),
+
+
                         Container(
                           height: height * 0.08,
                           color: MyColors.yellowish,
-                          child: Center(
+                          child:const Center(
                             child: Text(
                               "Compare",
                               style: TextStyle(
@@ -337,36 +340,3 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 }
-
-// class CheckBox extends StatelessWidget {
-//   CheckBox({this.update, this.pos, this.text, this.boxStatus});
-//   var update, boxStatus;
-//   int pos;
-//   String text;
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return GestureDetector(
-//       onTap: () => update(pos),
-//       child: Row(
-//         children: [
-//           Container(
-//             height: 20,
-//             width: 20,
-//             decoration: BoxDecoration(
-//               color: !boxStatus[pos] ? Colors.white : Colors.black,
-//               border: Border.all(width: 1, color: Colors.grey),
-//             ),
-//           ),
-//           SizedBox(
-//             width: 13,
-//           ),
-//           Text(
-//             '$text',
-//             style: MyTextStyle.text3,
-//           )
-//         ],
-//       ),
-//     );
-//   }
-// }
