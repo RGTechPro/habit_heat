@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_heatmap_calendar/flutter_heatmap_calendar.dart';
 import 'package:habit_heat/model/FAQ.dart';
+import 'package:habit_heat/sccreens/activity_page.dart';
 import 'package:habit_heat/widgets/dialog_box.dart';
 
 class HeatMaps extends StatefulWidget {
-  HeatMaps({required this.date});
+  HeatMaps({required this.date, required this.abcd});
   DateTime date;
-
+  bool abcd;
   @override
   State<HeatMaps> createState() => _HeatMapsState();
 }
@@ -41,29 +42,38 @@ class _HeatMapsState extends State<HeatMaps> {
         colorsets: {
           1: Colors.green,
         },
-        onClick: (value)async {
-          ScaffoldMessenger.of(context)
-              .showSnackBar(SnackBar(content: Text(value.toString())));
-               await showDialog(
-                    context: context,
-                    builder: (_) => DateDialog(
-                          sessionList:[
-                            FAQ(
-                                question: 'Session #1',
-                                answer:
-                                    'Rating: 4\nDuration: 4 hrs\nRemarks: abcdefjhv'),
-                                    FAQ(
-                                question: 'Session #1',
-                                answer:
-                                    'Rating: 4\nDuration: 4 hrs\nRemarks: abcdefjhv'),
-                                    FAQ(
-                                question: 'Session #1',
-                                answer:
-                                    'Rating: 4\nDuration: 4 hrs\nRemarks: abcdefjhv')
-                          ],
-                          date: value,
-                        ));
-                setState(() {});
+        onClick: (value) async {
+          if (widget.abcd == true) {
+            ScaffoldMessenger.of(context)
+                .showSnackBar(SnackBar(content: Text(value.toString())));
+            await showDialog(
+                context: context,
+                builder: (_) => DateDialog(
+                      sessionList: [
+                        FAQ(
+                            question: 'Session #1',
+                            answer:
+                                'Rating: 4\nDuration: 4 hrs\nRemarks: abcdefjhv'),
+                        FAQ(
+                            question: 'Session #1',
+                            answer:
+                                'Rating: 4\nDuration: 4 hrs\nRemarks: abcdefjhv'),
+                        FAQ(
+                            question: 'Session #1',
+                            answer:
+                                'Rating: 4\nDuration: 4 hrs\nRemarks: abcdefjhv')
+                      ],
+                      date: value,
+                    ));
+            setState(() {});
+          }
+          else{
+
+                     Navigator.push(
+              context,
+              MaterialPageRoute(
+                  builder: (context) => ActivityPage()));
+          }
         },
       ),
     );
