@@ -1,15 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+import 'package:habit_heat/Provider/currentState.dart';
+
 // import 'package:habit_heat/services/add_task.dart';
 import 'package:intl/intl.dart';
 import 'dart:convert';
 import 'package:duration_picker/duration_picker.dart';
+import 'package:provider/provider.dart';
 
 class AddSession extends StatefulWidget {
   AddSession({this.color, this.profile});
+
   List<Color>? color;
   String? profile;
+
   @override
   _AddSessionState createState() => _AddSessionState();
 }
@@ -18,12 +24,14 @@ class _AddSessionState extends State<AddSession> {
   final _formKey = GlobalKey<FormState>();
   Duration duration = Duration(hours: 0, minutes: 0);
   String init_val = 'Today';
+
   // String? taskName;
-  int? ratings;
+  int ratings = 0;
   String? remarks;
 
   @override
   Widget build(BuildContext context) {
+    CurrentState _instance = Provider.of<CurrentState>(context,listen:false);
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -132,14 +140,16 @@ class _AddSessionState extends State<AddSession> {
                           },
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'Please Enter the task ';
+                              return 'Please Enter the remark ';
                             }
                           },
+
                           style: TextStyle(fontSize: 30),
                           cursorColor: Colors.grey,
                           cursorHeight: 30,
                           autofocus: true,
-                          decoration: InputDecoration(border: InputBorder.none),
+                          decoration: InputDecoration(border: InputBorder.none,
+                          hintText: "Remarks for the Session"),
                         ),
                         SizedBox(
                           height: 35,
@@ -157,7 +167,7 @@ class _AddSessionState extends State<AddSession> {
                               width: 20,
                             ),
                             Text(
-                              widget.profile!,
+                              _instance.currentUser.habits?[_instance.selected].name ?? "",
                               style: TextStyle(color: Colors.grey),
                             )
                           ],
@@ -174,26 +184,7 @@ class _AddSessionState extends State<AddSession> {
                             SizedBox(
                               width: 20,
                             ),
-                            DropdownButton(
-                                alignment: Alignment.centerLeft,
-                                value: init_val,
-                                //  icon: const Icon(Icons.keyboard_arrow_down),
-                                items: <String>['Today', 'Tommorrow']
-                                    .map((String items) {
-                                  return DropdownMenuItem(
-                                    value: items,
-                                    child: Text(items),
-                                  );
-                                }).toList(),
-                                // After selecting the desired option,it will
-                                // change button value to selected value
-                                onChanged: (String? newValue) {
-                                  setState(() {
-                                    init_val = newValue!;
-                                    // Provider.of<Account>(context,listen: false)
-                                    //     .changeCity(newValue);
-                                  });
-                                }),
+                            Text(DateTime.now().toString()),
                           ],
                         ),
                         // Spacer(),
@@ -216,20 +207,36 @@ class _AddSessionState extends State<AddSession> {
                   //   date = DateFormat.yMMMMd('en_US').format(t);
                   // }
                   // await addTask(context, taskName!, date!, false);
+
+                  if (duration == Duration(hours: 0, minutes: 0)) {
+                    Fluttertoast.showToast(
+                        msg: "This is Center Short Toast",
+                        toastLength: Toast.LENGTH_SHORT,
+                        gravity: ToastGravity.CENTER,
+                        timeInSecForIosWeb: 1,
+                        backgroundColor: Colors.red,
+                        textColor: Colors.white,
+                        fontSize: 16.0);
+                  }
                 }
               },
-              child: Container(
-                  height: 50,
-                  width: double.infinity,
-                  child: Icon(
-                    Icons.add,
-                    color: Colors.white,
-                  ),
-                  decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                          colors: widget.color!,
-                          begin: Alignment.topRight,
-                          end: Alignment.bottomLeft))),
+              child: GestureDetector(
+                onTap: () {
+                  _instance.addSession(rating: ratings, duration: duration.inMinutes);
+                },
+                child: Container(
+                    height: 50,
+                    width: double.infinity,
+                    child: Icon(
+                      Icons.add,
+                      color: Colors.white,
+                    ),
+                    decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                            colors: widget.color!,
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft))),
+              ),
             ),
           ],
         ),

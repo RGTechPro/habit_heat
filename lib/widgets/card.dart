@@ -27,6 +27,7 @@ class TaskCard extends StatelessWidget {
   Widget build(BuildContext context) {
     CurrentState _instance = Provider.of(context,listen: false);
 
+    _instance.selected = index;
     SizeConfig().init(context);
 
     return Padding(

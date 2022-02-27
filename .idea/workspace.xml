@@ -10,9 +10,16 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c19e78fb-a281-4896-b85a-427cc7baee29" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Flutter_Plugins.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/habit_heat.iml" beforeDir="false" afterPath="$PROJECT_DIR$/habit_heat.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/Provider/currentState.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/Provider/currentState.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/generated_plugin_registrant.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/generated_plugin_registrant.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/model/habbit.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/model/habbit.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/sccreens/add_session.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sccreens/add_session.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/sccreens/home_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sccreens/home_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/widgets/card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/card.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

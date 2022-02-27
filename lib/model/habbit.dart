@@ -5,9 +5,9 @@ class Habbit {
   int ?streak;
   String ?motivation;
   List<SessionsModel> ?sessions;
+  String ?id;
 
-
-  Habbit({this.streak,this.name,this.motivation,this.sessions});
+  Habbit({this.streak,this.name,this.motivation,this.sessions,this.id});
 
 
 
@@ -28,6 +28,7 @@ class Habbit {
       "streak":streak,
       "motivation":motivation,
       "sessions":sessions,
+      "habit_id":id,
     };
   }
 
@@ -46,6 +47,7 @@ class Habbit {
       name: json["name"],
       motivation: json["motivation"],
       sessions: hey,
+      id: json["habit_id"]
     );
   }
 }
