@@ -383,28 +383,161 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.symmetric(horizontal: 0),
                 child: SizedBox(
                   height: SizeConfig.screenHeight! * 0.5,
-                  child: PageView.builder(
-                    itemCount: _instance.currentUser.habits?.length ?? 1,
-                      controller: PageController(viewportFraction: 0.75),
-                      onPageChanged: (int i) {
-                        setState(() {
-                          if (i == 1) {
-                            GColors = [Color(0xff62aee9), Color(0xff5363e2)];
-                          } else if (i == 2) {
-                            GColors = [Color(0xff4cc1a9), Color(0xff378e7c)];
+                  child: Builder(
+                    builder: (context) {
+                      int length = _instance.currentUser.habits?.length ?? 0;
+                      if(length!=0) {
+                        length=length+1;
+                      } else {
+                        length = 1;
+                      }
+                      return PageView.builder(
+                        itemCount: length,
+                          controller: PageController(viewportFraction: 0.75),
+                          onPageChanged: (int i) {
+                            setState(() {
+                              if (i == 1) {
+                                GColors = [Color(0xff62aee9), Color(0xff5363e2)];
+                              } else if (i == 2) {
+                                GColors = [Color(0xff4cc1a9), Color(0xff378e7c)];
+                              } else {
+                                GColors = [Color(0xfff6ac51), Color(0xfff65875)];
+                              }
+                            });
+                          },
+                          //shrinkWrap: true,
+                          //  physics: PageScrollPhysics(),
+                          scrollDirection: Axis.horizontal,
+                          itemBuilder: (context, index) {
+
+                          if(index < length-1) {
+                            print("inside level 1 if stattement");
+                            print(index);
+                            print(length-1);
+                            return TaskCard(index: index,);
+
                           } else {
-                            GColors = [Color(0xfff6ac51), Color(0xfff65875)];
+                            return Padding(
+                              padding: const EdgeInsets.only(right: 12, top: 15, left: 2, bottom: 20),
+                              child: GestureDetector(
+                                onTap: () {
+                                  //
+                                  // Navigator.push(
+                                  //     context,
+                                  //     MaterialPageRoute(
+                                  //         builder: (context) => ActivityPage(index: index,)));
+                                },
+                                child: Container(
+                                  height: SizeConfig.screenHeight! * 0.46,
+                                  width: SizeConfig.screenWidth! * 0.7,
+                                  decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      boxShadow: [
+                                        BoxShadow(
+                                            color: Colors.black26,
+                                            offset: Offset.zero,
+                                            spreadRadius: 0,
+                                            blurRadius: 13),
+                                      ],
+                                      borderRadius: BorderRadius.all(Radius.circular(8)),
+                                      border: Border.all(color: Colors.grey.withOpacity(.01))),
+                                  child: Row(
+                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Icon(Icons.add),
+                                      Center(
+                                        child: Text("Add",
+                                          style: TextStyle(
+                                              fontFamily: 'Roboto',
+                                              color: Colors.black54,
+                                              fontSize: 22),
+                                        ),
+                                      ),
+
+
+                                      // Expanded(
+                                      //   child: Row(
+                                      //       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      //       children: [
+                                      //         Padding(
+                                      //           padding: const EdgeInsets.all(8.0),
+                                      //           child: Container(
+                                      //             decoration: BoxDecoration(
+                                      //                 shape: BoxShape.circle,
+                                      //                 border: Border.all(
+                                      //                     color: Colors.grey.withOpacity(.15))),
+                                      //             child: Padding(
+                                      //               padding: const EdgeInsets.all(10),
+                                      //               child: Icon(
+                                      //                 icon,
+                                      //                 color: color!.first,
+                                      //               ),
+                                      //             ),
+                                      //           ),
+                                      //         ),
+                                      //         Padding(
+                                      //           padding: const EdgeInsets.all(8),
+                                      //           child: Icon(
+                                      //             Icons.more_vert,
+                                      //             color: Colors.grey.withOpacity(0.5),
+                                      //           ),
+                                      //         ),
+                                      //       ]),
+                                      // ),
+                                      // SizedBox(
+                                      //   height: SizeConfig.screenHeight! * 0.22,
+                                      // ),
+                                      // Padding(
+                                      //             padding: const EdgeInsets.symmetric(
+                                      //                 horizontal: 8.0, vertical: 3),
+                                      //             child: Text(
+                                      //               '0 Task today',
+                                      //               style: TextStyle(
+                                      //                   fontFamily: 'Roboto',
+                                      //                   color: Colors.black54,
+                                      //                   fontSize: 17),
+                                      //             ),
+                                      //           ),
+                                      // Padding(
+                                      //   padding: const EdgeInsets.symmetric(horizontal: 8),
+                                      //   child: Text(
+                                      //     profile!,
+                                      //     style: TextStyle(
+                                      //         fontFamily: 'Roboto',
+                                      //         fontWeight: FontWeight.bold,
+                                      //         color: Colors.black54,
+                                      //         fontSize: 30),
+                                      //   ),
+                                      // ),
+                                      // SizedBox(
+                                      //   height: SizeConfig.screenHeight! * 0.020,
+                                      // ),
+                                      // LinearPercentIndicator(
+                                      //   //  padding: EdgeInsets.only(right: 10),
+                                      //   trailing: Text(
+                                      //     '69%',
+                                      //     style: TextStyle(
+                                      //         fontFamily: 'Roboto', color: Colors.black54),
+                                      //   ),
+                                      //   percent: 0.69,
+                                      //   lineHeight: 3,
+                                      //   backgroundColor: Colors.grey.withOpacity(.2),
+                                      //   linearGradient: LinearGradient(
+                                      //       colors: color!,
+                                      //       begin: Alignment.centerLeft,
+                                      //       end: Alignment.centerRight),
+                                      // )
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            );
                           }
-                        });
-                      },
-                      //shrinkWrap: true,
-                      //  physics: PageScrollPhysics(),
-                      scrollDirection: Axis.horizontal,
-                      itemBuilder: (context, index) {
 
-
-                        return TaskCard(index: index,);
-                      },),
+                          },);
+                    }
+                  ),
                 ),
               ),
             )

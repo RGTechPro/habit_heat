@@ -10,22 +10,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c19e78fb-a281-4896-b85a-427cc7baee29" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/android/app/google-services.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/Provider/currentState.dart" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/lib/model/habbit.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/app/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/android/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/android/build.gradle" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/main.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/main.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/model/profile_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/model/profile_model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/model/session_model.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/model/session_model.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/sccreens/activity_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sccreens/activity_page.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/habit_heat.iml" beforeDir="false" afterPath="$PROJECT_DIR$/habit_heat.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/sccreens/home_page.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sccreens/home_page.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/sccreens/log_in.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sccreens/log_in.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/sccreens/profile_screen.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/sccreens/profile_screen.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/services/auth_services.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/services/auth_services.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/card.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/card.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/widgets/heat_map.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/widgets/heat_map.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
