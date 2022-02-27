@@ -25,6 +25,7 @@ class _AddSessionState extends State<AddSession> {
   Duration duration = Duration(hours: 0, minutes: 0);
   String init_val = 'Today';
 
+  TextEditingController remarkController = TextEditingController();
   // String? taskName;
   int ratings = 0;
   String? remarks;
@@ -135,6 +136,7 @@ class _AddSessionState extends State<AddSession> {
                           snapToMins: 5.0,
                         ),
                         TextFormField(
+                          controller: remarkController,
                           onChanged: (value) {
                             remarks = value;
                           },
@@ -222,7 +224,7 @@ class _AddSessionState extends State<AddSession> {
               },
               child: GestureDetector(
                 onTap: () {
-                  _instance.addSession(rating: ratings, duration: duration.inMinutes);
+                  _instance.addSession(rating: ratings, duration: duration.inMinutes,remark: remarkController.text);
                 },
                 child: Container(
                     height: 50,
