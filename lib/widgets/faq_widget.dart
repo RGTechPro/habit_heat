@@ -18,7 +18,7 @@ class FAQWidget extends StatelessWidget {
               fontFamily: 'Roboto',
               fontSize: 20,
               fontWeight: FontWeight.bold,
-              color: Colors.black),
+              color: Colors.white),
         ),
         collapsed: SizedBox(
           height: 0,
