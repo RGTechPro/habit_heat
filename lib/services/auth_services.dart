@@ -22,7 +22,7 @@ class Auth extends ChangeNotifier {
   }
 
 
-  String baseUrl = "http://e84f-42-111-11-28.ngrok.io";
+  String baseUrl = "https://habitheat.herokuapp.com";
 signInWithGoogle(BuildContext context) async {
     // Trigger the authentication flow
 

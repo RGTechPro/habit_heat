@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:habit_heat/Provider/currentState.dart';
 import 'package:habit_heat/Provider/weatherDart.dart';
 import 'package:habit_heat/constants/size_config.dart';
+import 'package:habit_heat/sccreens/add_activity.dart';
 import 'package:habit_heat/sccreens/log_in.dart';
 import 'package:habit_heat/sccreens/profile_screen.dart';
 import 'package:habit_heat/widgets/card.dart';
@@ -409,12 +410,12 @@ class _HomePageState extends State<HomePage> {
                                   borderRadius: BorderRadius.circular(100),
                                 ),
                                 child: Center(
-                                    child: Flexible(
-                                        child: Text(
+                                  child: Text(
                                   "${weatherProvider.tempData} C",
                                   style: GoogleFonts.openSans(
-                                      fontSize: 20, color: Colors.white),
-                                ))),
+                                  fontSize: 20, color: Colors.white),
+                                ),
+                                ),
                               ).asGlass(),
                             );
                           default:
@@ -432,7 +433,10 @@ class _HomePageState extends State<HomePage> {
                 padding: const EdgeInsets.symmetric(horizontal: 0),
                 child: SizedBox(
                   height: SizeConfig.screenHeight! * 0.5,
-                  child: Builder(builder: (context) {
+                  child: Consumer<CurrentState>(
+
+                      builder: (context,_,__) {
+
                     int length = _instance.currentUser.habits?.length ?? 0;
                     if (length != 0) {
                       length = length + 1;
@@ -471,10 +475,10 @@ class _HomePageState extends State<HomePage> {
                             child: GestureDetector(
                               onTap: () {
                                 //
-                                // Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //         builder: (context) => ActivityPage(index: index,)));
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => AddActivity()));
                               },
                               child: Container(
                                 height: SizeConfig.screenHeight! * 0.46,

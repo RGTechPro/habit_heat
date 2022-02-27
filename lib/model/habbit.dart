@@ -47,7 +47,7 @@ class Habbit {
       name: json["name"],
       motivation: json["motivation"],
       sessions: hey,
-      id: json["habit_id"]
+      id: json["_id"]
     );
   }
 }
