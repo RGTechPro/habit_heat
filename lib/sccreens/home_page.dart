@@ -5,6 +5,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:habit_heat/Provider/currentState.dart';
 import 'package:habit_heat/Provider/weatherDart.dart';
 import 'package:habit_heat/constants/size_config.dart';
+import 'package:habit_heat/sccreens/add_activity.dart';
 import 'package:habit_heat/sccreens/log_in.dart';
 import 'package:habit_heat/sccreens/profile_screen.dart';
 import 'package:habit_heat/widgets/card.dart';
@@ -310,8 +311,8 @@ class _HomePageState extends State<HomePage> {
                                         fontSize: 17,
                                         fontWeight: FontWeight.bold),
                                   ),
-
-                                  SizedBox(height: 10,),
+TextButton(child: Text('bskhdb'),onPressed: (){Navigator.push(context, MaterialPageRoute(builder: (context)=>AddActivity()));},)
+                                ,  SizedBox(height: 10,),
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
                                     children: [

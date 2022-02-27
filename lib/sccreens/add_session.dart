@@ -132,14 +132,14 @@ class _AddSessionState extends State<AddSession> {
                           },
                           validator: (value) {
                             if (value!.isEmpty) {
-                              return 'Please Enter the task ';
+                              return 'Please Enter the remarks ';
                             }
                           },
                           style: TextStyle(fontSize: 30),
                           cursorColor: Colors.grey,
                           cursorHeight: 30,
                           autofocus: true,
-                          decoration: InputDecoration(border: InputBorder.none),
+                          decoration: InputDecoration(border: InputBorder.none,hintText: 'Remarks for the session'),
                         ),
                         SizedBox(
                           height: 35,

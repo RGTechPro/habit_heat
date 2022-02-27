@@ -22,6 +22,14 @@
           }
         },
         {
+          "client_id": "12287428382-qh3anvtiinpi2fmth3o3d7m22l8a2vk4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.habit_heat",
+            "certificate_hash": "0353db340c756d017d204518ff7777ba0f68f70e"
+          }
+        },
+        {
           "client_id": "12287428382-qkn3od2tkrg3voqhhceiekq9ojqu93ou.apps.googleusercontent.com",
           "client_type": 3
         }
